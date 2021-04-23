@@ -1,0 +1,8 @@
+name: 'Obtención datos covid19'
+description: 'Obtener estadísticas de mujeres embarazadas que fueron hospitalizadas por covid19'
+outputs:
+  datos:
+    description: 'Listado de estadísticas por entidad'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
