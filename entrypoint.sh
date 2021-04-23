@@ -54,7 +54,7 @@ arr["99"]=NO_ESPECIFICADO
 
 for key in ${!arr[@]}; do
     echo "Procesando la Entidad de (${key}) ${arr[${key}]}..."
-    csvcut -c EMBARAZO,EDAD,TIPO_PACIENTE,ENTIDAD_RES,CLASIFICACION_FINAL 210421COVID19MEXICO.csv |\
+    csvcut -c EMBARAZO,EDAD,TIPO_PACIENTE,ENTIDAD_RES,CLASIFICACION_FINAL ${file_dia_ayer} |\
     csvgrep -c ENTIDAD_RES -m ${key} |\
     csvgrep -c TIPO_PACIENTE -m 2 |\
     csvgrep -c EMBARAZO -m 1 |\

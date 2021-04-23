@@ -1,7 +1,7 @@
 FROM python
 
 RUN pip install --upgrade pip && \
-    pip install --upgrade setuptools csvkit bashplotlib
+    pip install --upgrade setuptools csvkit
 
 WORKDIR /home/datos
 
