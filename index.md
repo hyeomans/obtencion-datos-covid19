@@ -1,37 +1,91 @@
-## Welcome to GitHub Pages
+## Descripción
 
-You can use the [editor on GitHub](https://github.com/hyeomans/obtencion-datos-covid19/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+Esta imagen de Docker nos permite:
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+* Bajar la [base de datos COVID-19](https://www.gob.mx/salud/documentos/datos-abiertos-152127) del día anterior por parte de dirección general de epidemiología de México.
+* Conocer las estadísticas de **mujeres embarazadas positivas covid-19 que fueron hospitalizadas**
+* Las estadísticas se generan por entidad federativa
 
-### Markdown
+Este es un ejemplo de las estadísticas presentadas:
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+**Ciudad de México al día 22 Abril 2021**
 
-```markdown
-Syntax highlighted code block
+```
+  2. "EDAD"
 
-# Header 1
-## Header 2
-### Header 3
+	Type of data:          Number
+	Contains null values:  False
+	Unique values:         35
+	Smallest value:        15
+	Largest value:         80
+	Sum:                   7701
+	Mean:                  30.927711
+	Median:                31
+	StDev:                 7.364556
+	Most common values:    28 (19x)
+	                       31 (18x)
+	                       30 (18x)
+	                       29 (15x)
+	                       32 (15x)
 
-- Bulleted
-- List
+  5. "CLASIFICACION_FINAL"
 
-1. Numbered
-2. List
+	Type of data:          Number
+	Contains null values:  False
+	Unique values:         2
+	Smallest value:        1
+	Largest value:         3
+	Sum:                   715
+	Mean:                  2.871486
+	Median:                3
+	StDev:                 0.491408
+	Most common values:    3 (233x)
+	                       1 (16x)
 
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+Row count: 249
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+## Clasificación final
 
-### Jekyll Themes
+La clasificación final es dada por la misma dirección de epidemiología. Se puede encontrar en el documento `Diccionario de datos`
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/hyeomans/obtencion-datos-covid19/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+| CLAVE | CLASIFICACIÓN                                                     | DESCRIPCIÓN                                                                                                                                                                                                      |
+|-------|-------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 1     | CASO DE COVID-19 CONFIRMADO POR ASOCIACIÓN CLÍNICA EPIDEMIOLÓGICA | "Confirmado por asociación aplica cuando el caso informó ser contacto de un positivo a COVID-19 (y este se encuentra registrado en el SISVER) y: Al caso no se le tomo muestra o la muestra resultó no válida. " |
+| 2     | CASO DE COVID-19 CONFIRMADO POR COMITÉ DE  DICTAMINACIÓN          | "Confirmado por dictaminación solo aplica para defunciones bajo las siguientes condiciones:  Al caso no se le tomo muestra o sí se tomó muestra, pero la muestra resultó no válida. "                            |
+| 3     | CASO DE SARS-COV-2  CONFIRMADO                                    | "Confirmado aplica cuando: El caso tiene muestra de laboratorio o prueba antigénica y resultó positiva  a SARS-CoV-2, sin importar si el caso tienen asociación clínica epidemiológica."                         |
 
-### Support or Contact
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+## Usar imagen de Docker
+
+Para utilizar esta imagen, se necesita:
+
+* Tener [Docker](https://docs.docker.com/get-docker/) instalado localmente
+* Hacer [clone de este repositorio](git@github.com:hyeomans/obtencion-datos-covid19.git)
+* Construir la imagen de docker
+* Correr la imagen de docker
+
+### Correr imagen de docker
+
+Primero vamos a clonar el repositorio:
+
+```
+> git clone git@github.com:hyeomans/obtencion-datos-covid19.git && cd obtencion-datos-covid19
+```
+
+Después construimos la imagen de docker con el siguiente comando:
+
+```
+> docker build -t datos:1 .
+```
+
+Y por último corremos la imagen de docker (este paso tomará tiempo):
+
+```
+> docker run -it -v ${pwd}/datos:/home/datos datos:1
+```
+
+Se creará un nuevo directorio con:
+
+* El archivo CSV que contiene los datos covid19 del día de ayer.
+* Archivos de texto con información por entidad.
