@@ -7,5 +7,5 @@ jobs:
     steps:
     - name: Hello world action step
       id: hello
-      uses: hyeomans/obtencion-datos-covid19@v0.1.0
+      uses: hyeomans/obtencion-datos-covid19@v0.2.0
     # Use the output from the `hello` step
